@@ -298,3 +298,11 @@ que acceder a **Tools>Options**. Se abrira la siguiente pestaña e iremos a **PH
 <img src="README.assets/image11.png" style="width: 570px"/>
 
 Aquí comprobamos la Session ID, y también el puerto (es el 9003).
+
+
+### navigator.php? 
+
+El fichero navigator.php es un buscador de archivos, el cual nos permite visualizar todo tipo de ficheros y poder ejecutar nuestros scripts de **PHP**, 
+este fichero es completamente prescindible, es solo una utilidad que pense que podria interesar al usuario. Dejo aqui el repositorio del chico creador de este script.
+
+https://github.com/marekrei/encode-explorer
