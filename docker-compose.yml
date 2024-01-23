@@ -75,9 +75,9 @@ services:
     image: phpmyadmin/phpmyadmin:latest
     hostname: phpmyadmin
     ports:
-      - "8082:80"
+      - "8002:80"
     environment:
-      PMA_HOST: mariadb
+      PMA_HOST: dwcs-mariadb
       PMA_PORT: 3306
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: dwcs

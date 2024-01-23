@@ -12,6 +12,7 @@
 | PHP 7.4 + Apache | 7.4     | 8001:80   |
 | Composer         | 2       | -         |
 | MariaDB          | Latest  | 3306:3306 |
+| PhpMyAdmin       | Latest  | 8002:80   |
 
 
 ### Docker
@@ -84,6 +85,12 @@ base_de_datos = "dwcs"
 Pero de manera externa, sí podremos conectarnos mediante **localhost** por ejemplo, para usar algún gestor de base de datos, como MySQL Workbench o DataGrip.
 
 <img src="README.assets/image1.png" style="width: 600px"/>
+
+> DataGrip -> [Descargar](https://www.jetbrains.com/datagrip/?source=google&medium=cpc&campaign=EMEA_en_ES_DataGrip_Branded&term=datagrip&content=555122603736&gclid=CjwKCAiA5L2tBhBTEiwAdSxJXy6-HS0b3otxSay3m0Znm3wcA8xjmZ9B2b-DjhewGU9sTO0ZFIdkoxoCqcAQAvD_BwE)
+
+<img src="README.assets/image14.png" style="width: 600px"/>
+
+> MySQL Workbench -> [Descargar](https://dev.mysql.com/downloads/workbench/)
 
 En resumen, para conexiones internas entre los contenedores usar el puerto interno y el hostname **host.docker.internal**, para conexiones externas usar el puerto que expone docker y el hostname **localhost**.
 
@@ -179,9 +186,38 @@ Así de esta manera se cargarán todas las librerías y las podrás usar.
 Una buena práctica es que cada vez que descarguemos una librería ejecutemos el comando del paso 3, 
 del anterior apartado anterior para actualizar el script que autocarga las librerías. 
 
+### PHPMyAdmin
+
+#### ¿Que es PHPMyAdmin?
+
+PhpMyAdmin es una herramienta de administración de bases de datos MySQL a través de una interfaz web. 
+Permite realizar tareas como la creación de bases de datos, tablas, modificación de datos, copias de seguridad, entre otras.
+
+#### ¿Como funciona?
+
+Para poder usar **PhpMyAdmin** junto a una base de datos (en nuestro caso una **MariaDB**) se debe de configurar bien nuestro **docker-compose.yml**, debemos fijarnos en estos apartados.
+
+```yml
+PMA_HOST: dwcs-mariadb
+PMA_PORT: 3306
+```
+
+Estos parametros corresponden al host y puerto al que va acceder **PhpMyAdmin**, debemos comprobra que son
+iguales a el ```container_name: 'dwcs-mariadb'``` y el ```ports: - "3306:3306"```
+
+#### ¿Como entrar?
+
+Para acceder al **PhpMyAdmin** lo hacemos mediante el puerto que tenemos abierto, ```localhost:8002```.
+
+Nos abrira la pagina para el Login y debemos acceder con las credenciales creadas en el **docker-compose.yml**, en este caso usuario **root** y contraseña **root** (recuerda que si has cambiado las credenciales hay que reflejar el cambio a la hora de iniciar sesion).
+
+<img src="README.assets/image13.png" style="width: 600px"/>
+
 ### XDebug
 
 #### ¿Que es XDebug?
+
+Xdebug es una extensión de PHP que proporciona capacidades de depuración de código y errores.
 
 #### XDebug en VSCode
 
