@@ -19,8 +19,8 @@ services:
       - dwcsLan
       - dwcs
 
-  php7.4:
-    container_name: 'dwcs-php-7.4'
+  php8.1:
+    container_name: 'dwcs-php-8.1'
     build:
       context: .
       dockerfile: Dockerfile2
@@ -57,7 +57,7 @@ services:
     container_name: 'dwcs-mariadb'
     image: mariadb:latest
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - ./data:/var/lib/mysql
     environment:
@@ -78,7 +78,7 @@ services:
       - "8002:80"
     environment:
       PMA_HOST: dwcs-mariadb
-      PMA_PORT: 3306
+      PMA_PORT: 3306 # Funciona con el puerto interno de los contenedores
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: dwcs
 

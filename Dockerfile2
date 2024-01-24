@@ -1,4 +1,4 @@
-FROM php:7.4-apache AS build-php
+FROM php:8.1-apache AS build-php
 
 RUN --mount=type=cache,target=/var/cache/apt apt update && apt full-upgrade -qy && apt clean -qy && apt autoremove -qy
 RUN mount=type=cache,target='/usr/local/lib/php' \

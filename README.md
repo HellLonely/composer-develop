@@ -9,9 +9,9 @@
 | Servicio         | Version | Puertos   |
 |------------------|---------|-----------|
 | PHP 8.2 + Apache | 8.2     | 8000:80   |
-| PHP 7.4 + Apache | 7.4     | 8001:80   |
+| PHP 8.1 + Apache | 8.1     | 8001:80   |
 | Composer         | 2       | -         |
-| MariaDB          | Latest  | 3306:3306 |
+| MariaDB          | Latest  | 3307:3306 |
 | PhpMyAdmin       | Latest  | 8002:80   |
 
 
@@ -63,6 +63,11 @@ ports:
   - "8000:80"
 ```
 
+Usamos las redes para prevenir conexiones exteriores a nuestro servidor de base de datos.
+
+- dwcsLan (Para red interna, Base de datos, PHP8.2, PHP7.4, Composer, PHPMyAdmin)
+- dwcs (Para red puente externa)
+
 
 Lo que quiere decir que de manera interna el **PHP 8.2** funciona con el puerto 80 (él por defecto para Apache) pero para conectarnos de manera externa a la web deberemos usar el 8000, por ejemplo ``` http://localhost:8000 ```. 
 
@@ -70,13 +75,21 @@ Lo que quiere decir que de manera interna el **PHP 8.2** funciona con el puerto 
 
 En nuestra aplicación usaremos de manera frecuente conexiones a nuestra base de datos **MariaDB**, así que es importante explicar como manejar estas conexiones en nuestro entorno **Docker**.
 
-A diferencia de Xamp, en Docker no nos podemos conectar a la base de datos con **PHP** mediante el hostname **localhost**, ya que Docker tiene un servidor DNS interno distinto. Lo recomendable es usar el conector interno de Docker, usando el hostname **host.docker.internal**.
+Debe conincidir el nombre del contenedor de **MariaDb**, con el conector que usaremos en php, aloja en el **./config/config.ini**.
+
+<img src='README.assets/image15.png' style='width: 300px;'/>
+
+> Imagen del contenedor de MariaDB
+
+<img src='README.assets/image16.png' style='width: 300px;'/>
+
+A diferencia de Xamp, en Docker no nos podemos conectar a la base de datos con **PHP** mediante el hostname **localhost**, ya que Docker tiene un servidor DNS interno distinto. Lo recomendable es usar el conector interno de Docker, usando el hostname de nuestra base de datos: **dwcs-mariadb**.
 
 > Archivo config.ini
 
 ```ini
 [database]
-hostname = "host.docker.internal"
+hostname = "dwcs-mariadb"
 puerto = "3306"
 usuario = "root"
 contrasena = "root"
@@ -92,7 +105,7 @@ Pero de manera externa, sí podremos conectarnos mediante **localhost** por ejem
 
 > MySQL Workbench -> [Descargar](https://dev.mysql.com/downloads/workbench/)
 
-En resumen, para conexiones internas entre los contenedores usar el puerto interno y el hostname **host.docker.internal**, para conexiones externas usar el puerto que expone docker y el hostname **localhost**.
+En resumen, para conexiones internas entre los contenedores usar el puerto interno y el hostname de la base de datos **dwcs-mariadb**, para conexiones externas usar el puerto que expone docker y el hostname **localhost**.
 
 #### Volúmenes
 
