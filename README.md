@@ -11,7 +11,7 @@
 | PHP 8.2 + Apache | 8.2     | 8000:80   |
 | PHP 8.1 + Apache | 8.1     | 8001:80   |
 | Composer         | 2       | -         |
-| MariaDB          | Latest  | 3307:3306 |
+| Mysql            | Latest  | 3307:3306 |
 | PhpMyAdmin       | Latest  | 8002:80   |
 
 
@@ -73,23 +73,23 @@ Lo que quiere decir que de manera interna el **PHP 8.2** funciona con el puerto 
 
 ##### Conexiones
 
-En nuestra aplicación usaremos de manera frecuente conexiones a nuestra base de datos **MariaDB**, así que es importante explicar como manejar estas conexiones en nuestro entorno **Docker**.
+En nuestra aplicación usaremos de manera frecuente conexiones a nuestra base de datos **MySql**, así que es importante explicar como manejar estas conexiones en nuestro entorno **Docker**.
 
-Debe conincidir el nombre del contenedor de **MariaDb**, con el conector que usaremos en php, aloja en el **./config/config.ini**.
+Debe conincidir el nombre del contenedor de **MySql**, con el conector que usaremos en php, aloja en el **./config/config.ini**.
 
 <img src='README.assets/image15.png' style='width: 300px;'/>
 
-> Imagen del contenedor de MariaDB
+> Imagen del contenedor de MySql
 
 <img src='README.assets/image16.png' style='width: 300px;'/>
 
-A diferencia de Xamp, en Docker no nos podemos conectar a la base de datos con **PHP** mediante el hostname **localhost**, ya que Docker tiene un servidor DNS interno distinto. Lo recomendable es usar el conector interno de Docker, usando el hostname de nuestra base de datos: **dwcs-mariadb**.
+A diferencia de Xamp, en Docker no nos podemos conectar a la base de datos con **PHP** mediante el hostname **localhost**, ya que Docker tiene un servidor DNS interno distinto. Lo recomendable es usar el conector interno de Docker, usando el hostname de nuestra base de datos: **dwcs-mysql**.
 
 > Archivo config.ini
 
 ```ini
 [database]
-hostname = "dwcs-mariadb"
+hostname = "dwcs-mysql"
 puerto = "3306"
 usuario = "root"
 contrasena = "root"
@@ -105,13 +105,13 @@ Pero de manera externa, sí podremos conectarnos mediante **localhost** por ejem
 
 > MySQL Workbench -> [Descargar](https://dev.mysql.com/downloads/workbench/)
 
-En resumen, para conexiones internas entre los contenedores usar el puerto interno y el hostname de la base de datos **dwcs-mariadb**, para conexiones externas usar el puerto que expone docker y el hostname **localhost**.
+En resumen, para conexiones internas entre los contenedores usar el puerto interno y el hostname de la base de datos **dwcs-mysql**, para conexiones externas usar el puerto que expone docker y el hostname **localhost**.
 
 #### Volúmenes
 
 En el repositorio tenemos creados varios volúmenes importantes.
 
-- MariaDB Volumen: ./data:/var/lib/mysql | Este volumen es el encargado de guardar los datos de la base de datos, para evitar perder la información cada vez que apagamos el contenedor.
+- MySql Volumen: ./data:/var/lib/mysql | Este volumen es el encargado de guardar los datos de la base de datos, para evitar perder la información cada vez que apagamos el contenedor.
 - PHP 8.2 y 7.2:
   - ./app:/var/www/html | Volumen que monta la web para servirla mediante el servidor Apache
   - ./config/php.ini:/usr/local/etc/php/php.ini | Montar el archivo de configuración php.ini en el servidor para poder editarlo mas facil
@@ -208,15 +208,15 @@ Permite realizar tareas como la creación de bases de datos, tablas, modificaci�
 
 #### ¿Como funciona?
 
-Para poder usar **PhpMyAdmin** junto a una base de datos (en nuestro caso una **MariaDB**) se debe de configurar bien nuestro **docker-compose.yml**, debemos fijarnos en estos apartados.
+Para poder usar **PhpMyAdmin** junto a una base de datos (en nuestro caso una **MySql**) se debe de configurar bien nuestro **docker-compose.yml**, debemos fijarnos en estos apartados.
 
 ```yml
-PMA_HOST: dwcs-mariadb
+PMA_HOST: dwcs-mysql
 PMA_PORT: 3306
 ```
 
 Estos parametros corresponden al host y puerto al que va acceder **PhpMyAdmin**, debemos comprobra que son
-iguales a el ```container_name: 'dwcs-mariadb'``` y el ```ports: - "3306:3306"```
+iguales a el ```container_name: 'dwcs-mysql'``` y el ```ports: - "3306:3306"```
 
 #### ¿Como entrar?
 

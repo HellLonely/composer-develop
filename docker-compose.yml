@@ -53,9 +53,9 @@ services:
       - dwcsLan
       - dwcs
 
-  mariadb:
-    container_name: 'dwcs-mariadb'
-    image: mariadb:latest
+  mysql:
+    container_name: 'dwcs-mysql'
+    image: mysql:latest
     ports:
       - "3307:3306"
     volumes:
@@ -77,7 +77,7 @@ services:
     ports:
       - "8002:80"
     environment:
-      PMA_HOST: dwcs-mariadb
+      PMA_HOST: dwcs-mysql
       PMA_PORT: 3306 # Funciona con el puerto interno de los contenedores
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: dwcs
