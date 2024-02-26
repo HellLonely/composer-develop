@@ -218,11 +218,36 @@ PMA_PORT: 3306
 Estos parametros corresponden al host y puerto al que va acceder **PhpMyAdmin**, debemos comprobra que son
 iguales a el ```container_name: 'dwcs-mysql'``` y el ```ports: - "3306:3306"```
 
+#### ¿ Tipo de arquitectura ?
+
+Segun el tipo de arquitectura del sistema y de dispositivo hay que tener una especial preocupacion sobre que version de **PhpMyAdmin**, en el repositorio usamos la base de **amd64** la basica para Windows. Asi que deberias verificar el tipo de arquitectura de tu equipo y cambiar el **docker-compose.yml**.
+
+[Mas info](https://github.com/docker-library/official-images#architectures-other-than-amd64)
+
+
+| Sistema Operativo | Tipo de Arquitectura |
+|---------------------|-----------------------|
+| Windows             | amd64                 |
+| Linux               | arm32v5               |
+| Linux               | arm32v6               |
+| Linux               | arm32v7               |
+| Linux               | arm64v8               |
+| Windows             | i386                  |
+| Linux               | mips64le              |
+| Linux               | ppc64le               |
+| Linux               | s390x                 |
+| macOS               | amd64                 |
+
+
+
+
 #### ¿Como entrar?
 
 Para acceder al **PhpMyAdmin** lo hacemos mediante el puerto que tenemos abierto, ```localhost:8002```.
 
 Nos abrira la pagina para el Login y debemos acceder con las credenciales creadas en el **docker-compose.yml**, en este caso usuario **root** y contraseña **root** (recuerda que si has cambiado las credenciales hay que reflejar el cambio a la hora de iniciar sesion).
+
+
 
 <img src="README.assets/image13.png" style="width: 600px"/>
 
